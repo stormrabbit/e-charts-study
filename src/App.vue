@@ -1,25 +1,27 @@
 <template>
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container">
+    <JsonEditor v-model="code"></JsonEditor>
+  </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+import { ref } from 'vue';
+import JsonEditor from './components/Editor.vue';
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  },
-}
+const code = ref('');
 </script>
 
-<style>
+<style scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+.container {
+  position: fixed;
+  height: 100%;
+  width: 100%;
 }
 </style>

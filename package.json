@@ -11,6 +11,8 @@
     "core-js": "^3.6.5",
     "dayjs": "^1.10.7",
     "echarts": "^5.2.1",
+    "monaco-editor": "^0.29.1",
+    "monaco-editor-webpack-plugin": "^5.0.0",
     "vue": "^3.0.0",
     "vue-echarts": "^6.0.0"
   },

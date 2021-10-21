@@ -28,6 +28,7 @@ export const countResult = (results) => {
         if( (index %  ava) === 0 ) {
             pre.push([cur])
         } 
+        
         if( (index %  ava) !== 0 )  {
             pre[pre.length -1] = [...pre[pre.length -1], cur]
         }
