@@ -4,7 +4,7 @@
         <div>
             <span @click="showInfo">测试</span>
         </div>
-        <div>{{codeValue}}</div>
+        <div>{{content}}</div>
     </div>
 </template>
 
@@ -55,7 +55,10 @@ export default {
         showInfo() {
             console.log('==>showInfo')
             const info = toRaw(this.editor).getValue()
-            eval(info)
+            // console.log(info)
+            window.info = info
+            
+            this.content = eval(`(() => {\n${info}\n})()`)
         },
         initEditor() {
             const self = this;
