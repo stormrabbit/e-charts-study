@@ -1,10 +1,6 @@
 <template>
     <div id="monaco-editor-box">
         <div id="monaco-editor" ref="monacoEditor" />
-        <div>
-            <span @click="showInfo">测试</span>
-        </div>
-        <div>{{content}}</div>
     </div>
 </template>
 
@@ -14,6 +10,10 @@ import {toRaw} from 'vue'
 export default {
     components: {},
     props: {
+        language: {
+            type: String,
+            default: 'javascript'
+        },
         editorOptions: {
             type: Object,
             default: function () {
@@ -34,7 +34,7 @@ export default {
         codes: {
             type: String,
             default: function () {
-                return "// 请输入 JavaScript 代码";
+                return "";
             },
         },
     },
@@ -53,11 +53,7 @@ export default {
     },
     methods: {
         showInfo() {
-            console.log('==>showInfo')
             const info = toRaw(this.editor).getValue()
-            // console.log(info)
-            window.info = info
-            
             this.content = eval(`(() => {\n${info}\n})()`)
         },
         initEditor() {
@@ -65,20 +61,18 @@ export default {
             // 初始化编辑器，确保dom已经渲染
             this.editor = monaco.editor.create(self.$refs.monacoEditor, {
                 value: self.codeValue || self.codes, // 编辑器初始显示内容
-                language: "javascript", // 支持语言
+                language: self.language || 'javascript', // 支持语言
                 theme: "vs-dark", // 主题
                 selectOnLineNumbers: true, //显示行号
                 editorOptions: self.editorOptions,
             });
             self.$emit("onMounted", self.editor); //编辑器创建完成回调
             self.editor.onDidChangeModelContent(function () {
-                console.log(self.editor)
-                window.editor = self.editor
                 //编辑器内容changge事件
                 // self.codesCopy = self.editor.getValue();
                 // const content = self.editor.getValue();
                 // console.log(content)
-                // self.$emit("onCodeChange", self.editor.getValue(), event);
+                self.$emit("onCodeChange", toRaw(self.editor).getValue(), event);
             });
         },
     },
